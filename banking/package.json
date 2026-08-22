@@ -1,0 +1,31 @@
+{
+  "name": "@vowlabs/banking",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./sdk/index.ts",
+    "./banking": "./sdk/banking.ts",
+    "./burn": "./sdk/burn.ts",
+    "./staking": "./sdk/staking.ts",
+    "./watch": "./sdk/watch.ts",
+    "./utils": "./sdk/utils/index.ts"
+  },
+  "scripts": {
+    "test": "vitest --run",
+    "test:debug": "node --inspect-brk ./node_modules/vitest/vitest.mjs run --threads=false",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@telegram-apps/telegram-ui": "^2.1.9",
+    "axios": "^1.19.0",
+    "ethers": "^6.17.0",
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "typescript": "^5",
+    "vitest": "^1.0.0"
+  }
+}

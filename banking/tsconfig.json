@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@core/*": [
+        "../../packages/core/src/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@evm/*": [
+        "../../../EVM/*"
+      ],
+      "@deployments/*": [
+        "../../../EVM/deployments/localhost/*"
+      ]
+    },
+    "target": "ES2017",
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "../../node_modules/@types",
+      "./types"
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

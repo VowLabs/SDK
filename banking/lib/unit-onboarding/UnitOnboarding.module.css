@@ -1,0 +1,166 @@
+.shell {
+  display: grid;
+  gap: 20px;
+  color: #f3f7fb;
+}
+
+.intro {
+  color: #9fb0c2;
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  color: #9fb0c2 !important;
+}
+
+.form label span {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #9fb0c2 !important;
+}
+
+.form input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(10, 10, 15, 0.86) !important;
+  background-color: rgba(10, 10, 15, 0.86) !important;
+  color: #f3f7fb !important;
+  padding: 14px 16px;
+  font: inherit;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form input::placeholder {
+  color: rgba(223, 234, 244, 0.55) !important;
+}
+
+.form input:-webkit-autofill,
+.form input:-webkit-autofill:hover,
+.form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f3f7fb !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(10, 10, 15, 0.86) inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: rgba(0, 229, 160, 0.42);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12);
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gridTriple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.error {
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.14);
+  color: #ffd9d9;
+  padding: 12px 14px;
+}
+
+.account {
+  display: grid;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 16px;
+}
+
+.summary {
+  display: grid;
+  gap: 10px;
+}
+
+.summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summary span {
+  color: #9fb0c2;
+}
+
+.summary strong {
+  text-align: right;
+}
+
+.rails {
+  display: grid;
+  gap: 12px;
+}
+
+.rails article {
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rails h4 {
+  margin: 0 0 8px;
+}
+
+.rails p {
+  margin: 4px 0;
+}
+
+.copyRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.copyButton {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f3f7fb;
+  font-weight: 700;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.success {
+  color: #6af1c2;
+  font-weight: 600;
+}
+
+.embedded {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 720px) {
+  .grid,
+  .gridTriple {
+    grid-template-columns: 1fr;
+  }
+}
