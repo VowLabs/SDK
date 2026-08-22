@@ -25,11 +25,7 @@ export class Banking {
 		try {
 			const Provider = { checkbook: CheckbookProvider, usio: UsioProvider, bridge: BridgeProvider, unit: UnitProvider }[name]
 			if (typeof Provider === 'function') {
-				try {
-					this.provider = new Provider()
-				} catch (e) {
-					this.provider = Provider()
-				}
+				this.provider = new Provider()
 			} else {
 				throw new Error('Provider not found in module ' + name)
 			}
