@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "incremental": false
+  },
+  "include": ["sdk/**/*.ts", "lib/**/*.ts", "lib/**/*.tsx", "types/**/*.d.ts"],
+  "exclude": ["node_modules", "test"]
+}

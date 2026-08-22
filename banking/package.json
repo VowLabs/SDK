@@ -1,23 +1,49 @@
 {
   "name": "@vowlabs/banking",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "exports": {
-    ".": "./sdk/index.ts",
-    "./banking": "./sdk/banking.ts",
-    "./burn": "./sdk/burn.ts",
-    "./staking": "./sdk/staking.ts",
-    "./watch": "./sdk/watch.ts",
-    "./utils": "./sdk/utils/index.ts"
+    ".": {
+      "types": "./dist/sdk/index.d.ts",
+      "default": "./dist/sdk/index.js"
+    },
+    "./banking": {
+      "types": "./dist/sdk/banking.d.ts",
+      "default": "./dist/sdk/banking.js"
+    },
+    "./burn": {
+      "types": "./dist/sdk/burn.d.ts",
+      "default": "./dist/sdk/burn.js"
+    },
+    "./staking": {
+      "types": "./dist/sdk/staking.d.ts",
+      "default": "./dist/sdk/staking.js"
+    },
+    "./watch": {
+      "types": "./dist/sdk/watch.d.ts",
+      "default": "./dist/sdk/watch.js"
+    },
+    "./utils": {
+      "types": "./dist/sdk/utils/index.d.ts",
+      "default": "./dist/sdk/utils/index.js"
+    }
   },
   "scripts": {
     "test": "vitest --run",
     "test:debug": "node --inspect-brk ./node_modules/vitest/vitest.mjs run --threads=false",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
+    "verify": "npm audit --audit-level=high && npm test && npm run typecheck && npm run build && npm pack --dry-run",
+    "prepublishOnly": "npm run verify"
   },
+  "files": [
+    "dist",
+    "public",
+    "README.md"
+  ],
   "dependencies": {
-    "@telegram-apps/telegram-ui": "^2.1.9",
     "axios": "^1.19.0",
     "ethers": "^6.17.0",
     "react": "^19"
@@ -26,6 +52,6 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "typescript": "^5",
-    "vitest": "^1.0.0"
+    "vitest": "^4.1.11"
   }
 }

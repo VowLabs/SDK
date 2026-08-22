@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Button, Text } from '@telegram-apps/telegram-ui'
 
 import styles from './UnitOnboarding.module.css'
 import type { UnitCreatedAccount, UnitOnboardingFormState } from './types'
@@ -102,10 +101,10 @@ export function UnitOnboarding({
 
   return (
     <div className={`${styles.shell} ${embedded ? styles.embedded : ''}`}>
-      <Text className={styles.intro}>
+      <p className={styles.intro}>
         <strong>{title}</strong>
-      </Text>
-      <Text className={styles.intro}>{intro}</Text>
+      </p>
+      <p className={styles.intro}>{intro}</p>
 
       <form className={styles.form} onSubmit={onSubmit}>
         <div className={styles.grid}>
@@ -168,9 +167,9 @@ export function UnitOnboarding({
         {error ? <div className={styles.error}>{error}</div> : null}
 
         <div className={styles.actions}>
-          <Button type="submit" disabled={loading}>
+          <button className={styles.submit} type="submit" disabled={loading}>
             {loading ? 'Creating account...' : 'Create account'}
-          </Button>
+          </button>
         </div>
       </form>
 

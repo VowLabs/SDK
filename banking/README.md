@@ -22,6 +22,10 @@ pnpm test
 pnpm typecheck
 ```
 
+Before publishing, run `npm publish --access public`. Its publish lifecycle runs
+the dependency audit, tests, typecheck, build, and package dry-run first; a
+failed check prevents publication.
+
 ## Server SDK
 
 ```ts
