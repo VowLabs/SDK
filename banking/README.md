@@ -1,57 +1,33 @@
-# Banking
+# Banking SDK
 
-Banking is VowLabs' off-chain banking and onboarding product. It owns provider integrations, normalized banking interfaces, and embeddable onboarding UI that other Vow applications can use from trusted server code or browser-safe widgets.
+`@vowlabs/banking` is VowLabs’ reusable banking and onboarding library. It provides provider adapters, a typed server SDK, provider-native utilities, and browser onboarding assets. It is not an application boundary: consuming applications own identity, authentication, authorization, routing, customer support, and product policy.
 
-The Telegram customer bot lives separately in [../../../NokNok/Telegram](../../../NokNok/Telegram/). That app consumes this SDK; it is not the SDK itself.
+Use Banking from a trusted application server. Browser widgets must call that application’s backend; never expose provider credentials in browser code.
 
-## Repository Shape
+## Contents
 
-- [lib/banking](lib/banking/) contains the internal provider implementations.
-- [sdk](sdk/) is the public TypeScript SDK export surface.
-- [sdk/utils](sdk/utils/) contains provider-native helpers that intentionally sit outside the shared banking abstraction.
-- [lib/unit-onboarding](lib/unit-onboarding/) contains SDK-owned onboarding components.
-- [public/banking-sdk.js](public/banking-sdk.js) and [public/unit-onboarding.js](public/unit-onboarding.js) are browser SDK assets.
-- [../../../NokNok/Telegram](../../../NokNok/Telegram/) is the Next.js Telegram Mini App and bot webhook implementation.
+- [sdk/index.ts](sdk/index.ts): package exports.
+- [sdk/banking.ts](sdk/banking.ts): `Banking`, provider classes, shared types, and account-opening field helpers.
+- [sdk/utils](sdk/utils/): provider-native utilities, including `UnitClient`.
+- [sdk/burn.ts](sdk/burn.ts), [sdk/staking.ts](sdk/staking.ts), and [sdk/watch.ts](sdk/watch.ts): optional chain-processing helpers.
+- [lib/banking](lib/banking/): adapters for Checkbook, USIO, Bridge, and Unit.
+- [lib/unit-onboarding](lib/unit-onboarding/): SDK-owned React onboarding UI.
+- [public/banking-sdk.js](public/banking-sdk.js) and [public/unit-onboarding.js](public/unit-onboarding.js): browser-ready assets.
 
-## Where To Start
+## Development
 
-- SDK overview: [docs/SDK.md](docs/SDK.md)
-- Banking providers: [docs/BANKING.md](docs/BANKING.md)
-- Unit integration: [docs/UNIT.md](docs/UNIT.md)
-- Bridge integration: [docs/BRIDGE.md](docs/BRIDGE.md)
-- Telegram app and bot: [../../../NokNok/Telegram/README.md](../../../NokNok/Telegram/README.md)
-
-## Public SDK Entry Points
-
-- TypeScript SDK exports: [sdk/index.ts](sdk/index.ts)
-- Banking SDK exports: [sdk/banking.ts](sdk/banking.ts)
-- Provider-native utilities: [sdk/utils](sdk/utils/)
-- Browser SDK widgets/forms: [public/banking-sdk.js](public/banking-sdk.js)
-
-Banking is meant to be embedded by an orchestrating app such as PriceEdge or the Telegram bot. Those apps own user journeys, auth, routing, and product-specific policy.
-
-## Banking Services
-
-Banking currently supports these peer providers:
-
-- `checkbook`
-- `usio`
-- `bridge`
-- `unit`
-
-Use the shared provider interface when an app wants interchangeable services behind one internal interface:
-
-```ts
-import { Banking } from '@vowlabs/banking'
-
-const banking = await Banking.create('unit')
+```sh
+pnpm install
+pnpm test
+pnpm typecheck
 ```
 
-Use provider-native utilities when the orchestrating app needs service-specific behavior that does not fit the shared abstraction cleanly:
+## Server SDK
 
-```js
-import { UnitClient } from '@vowlabs/banking'
+```ts
+import { Banking, UnitClient } from '@vowlabs/banking'
 
+const banking = await Banking.create('unit')
 const unit = new UnitClient({
   unitApiUrl: process.env.UNIT_API_URL,
   unitToken: process.env.UNIT_TOKEN,
@@ -59,36 +35,21 @@ const unit = new UnitClient({
 })
 ```
 
-The first utility in that category is [sdk/utils/unit-client.mjs](sdk/utils/unit-client.mjs).
+Supported provider names are `checkbook`, `usio`, `bridge`, and `unit`. The common interface covers user lifecycle, escrow accounts, exit accounts, and cheque operations. Use a provider class or provider-native utility when a flow does not fit that shared interface.
 
-## Development
+See [docs/SDK.md](docs/SDK.md), [docs/BANKING.md](docs/BANKING.md), [docs/UNIT.md](docs/UNIT.md), and [docs/BRIDGE.md](docs/BRIDGE.md) for supported operations and integration examples.
 
-From this directory:
+## Browser assets
 
-```bash
-pnpm install
-pnpm test
-pnpm typecheck
-```
+`public/banking-sdk.js` exposes widgets through `window.VowLabs.Banking`. Use it for presentation only and route sensitive operations through the application-controlled backend specified by the widget’s `baseUrl`. Browser APIs and examples are documented in [docs/SDK.md](docs/SDK.md#browser-sdk).
 
-The Telegram app is intentionally a separate package:
+## Configuration and security
 
-```bash
-pnpm -C ../../../NokNok/Telegram dev
-pnpm -C ../../../NokNok/Telegram dev:https
-pnpm -C ../../../NokNok/Telegram build
-pnpm -C ../../../NokNok/Telegram start
-```
-
-Those commands run the bot/Mini App on port 24105. SDK-focused tests live under [test](test/); Telegram-specific tests live under [../../../NokNok/Telegram/test](../../../NokNok/Telegram/test/).
-
-## Environment
-
-Provider configuration is read from environment variables by the individual provider implementations:
+Provider configuration is server-side environment only:
 
 - Checkbook: `CHKBK_URL`, `CHKBK_PUBLIC`, `CHKBK_SECRET`
 - USIO: `USIO_API`, `USIO_KEY`, `USIO_SECRET`
 - Bridge: `BRIDGE_API_URL`, `BRIDGE_API_KEY`
 - Unit: `UNIT_API_URL`, `UNIT_TOKEN`, `UNIT_DEPOSIT_PRODUCT`
 
-Error codes use the dot-prefix format consumed by app translation layers, for example `.checkbook.user-get` and `.redis.user-not-found`. Preserve those codes when adding provider behavior.
+Keep provider secrets in a secret manager and rotate them on exposure. Preserve dot-prefix error codes such as `.checkbook.user-get`, because consuming applications may map them to user-facing recovery behavior.
