@@ -1,4 +1,8 @@
 import { BankingProvider, User, Auth, ExitAcct, Cheque, EscrowAcct } from './types'
+import { Provider as CheckbookProvider } from './checkbook'
+import { Provider as UsioProvider } from './usio'
+import { Provider as BridgeProvider } from './bridge'
+import { Provider as UnitProvider } from './unit'
 
 export const AVAILABLE_BANKING_SERVICES = ['checkbook', 'usio', 'bridge', 'unit'] as const
 export type BankingServiceName = typeof AVAILABLE_BANKING_SERVICES[number]
@@ -19,13 +23,12 @@ export class Banking {
 
 	async loadProvider(name: BankingServiceName) {
 		try {
-			const providerModule = await import('./' + name)
-			
-			if (typeof providerModule.Provider === 'function') {
+			const Provider = { checkbook: CheckbookProvider, usio: UsioProvider, bridge: BridgeProvider, unit: UnitProvider }[name]
+			if (typeof Provider === 'function') {
 				try {
-					this.provider = new providerModule.Provider()
+					this.provider = new Provider()
 				} catch (e) {
-					this.provider = providerModule.Provider()
+					this.provider = Provider()
 				}
 			} else {
 				throw new Error('Provider not found in module ' + name)

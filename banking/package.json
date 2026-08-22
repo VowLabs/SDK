@@ -1,6 +1,6 @@
 {
   "name": "@vowlabs/banking",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "exports": {
@@ -27,6 +27,10 @@
     "./utils": {
       "types": "./dist/sdk/utils/index.d.ts",
       "default": "./dist/sdk/utils/index.js"
+    },
+    "./unit-onboarding": {
+      "types": "./dist/lib/unit-onboarding/index.d.ts",
+      "default": "./dist/lib/unit-onboarding/index.js"
     }
   },
   "scripts": {
