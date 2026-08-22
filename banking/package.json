@@ -1,6 +1,6 @@
 {
   "name": "@vowlabs/banking",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "type": "module",
   "exports": {
@@ -37,7 +37,7 @@
     "test": "vitest --run",
     "test:debug": "node --inspect-brk ./node_modules/vitest/vitest.mjs run --threads=false",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && cp lib/unit-onboarding/UnitOnboarding.module.css dist/lib/unit-onboarding/UnitOnboarding.module.css && test -f dist/sdk/onboarding-fields.js && test -f dist/lib/unit-onboarding/UnitOnboarding.module.css",
     "prepack": "npm run build",
     "verify": "npm audit --audit-level=high && npm test && npm run typecheck && npm run build && npm pack --dry-run",
     "prepublishOnly": "npm run verify"

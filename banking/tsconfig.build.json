@@ -8,6 +8,6 @@
     "rootDir": ".",
     "incremental": false
   },
-  "include": ["sdk/**/*.ts", "lib/**/*.ts", "lib/**/*.tsx", "types/**/*.d.ts"],
+  "include": ["sdk/**/*.ts", "sdk/**/*.js", "lib/**/*.ts", "lib/**/*.tsx", "types/**/*.d.ts"],
   "exclude": ["node_modules", "test"]
 }
