@@ -18,7 +18,7 @@ Banking exposes two related SDK surfaces:
 The current public capabilities are:
 
 - Banking provider selection through a shared `Banking` interface
-- Provider-specific access to `checkbook`, `usio`, `bridge`, and `unit`
+- Provider-specific access to `checkbook`, `usio`, `bridge`, `unit`, and `swipelux`
 - A Unit API client for server-side funding-account creation
 - SDK-owned browser forms/widgets for Banking-related onboarding
 
@@ -38,7 +38,7 @@ Banking entry point:
 import { AVAILABLE_BANKING_SERVICES } from '@vowlabs/banking'
 
 console.log(AVAILABLE_BANKING_SERVICES)
-// ['checkbook', 'usio', 'bridge', 'unit']
+// ['checkbook', 'usio', 'bridge', 'unit', 'swipelux']
 ```
 
 ### Generic provider selection
@@ -55,11 +55,13 @@ Supported service names:
 - `usio`
 - `bridge`
 - `unit`
+- `swipelux`
 
 ### Provider-specific imports
 
 ```ts
 import {
+  SwipeLuxProvider,
   CheckbookProvider,
   USIOProvider,
   BridgeProvider,
@@ -207,3 +209,7 @@ These browser APIs are for SDK-owned Banking UI that an app embeds inside its ow
 - Use the browser SDK only for embedded Banking-owned onboarding UI and browser-safe helpers.
 - Use `Banking.create(service)` when you want provider interchangeability.
 - Use `UnitClient` when you need Unit-specific onboarding or payment behavior.
+
+## SwipeLux
+
+Select `swipelux` through `Banking`, or import `SwipeLuxProvider` for native v3 accounts, capabilities, quotes, and transfers. Set `SWIPELUX_API_KEY`; optional `SWIPELUX_API_URL` defaults to `https://platform.swipelux.com`. See [SwipeLux integration](SWIPELUX.md) for supported methods, retry keys, and account-opening examples.

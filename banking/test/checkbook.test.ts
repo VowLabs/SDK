@@ -4,7 +4,7 @@ import { Provider as CheckbookProvider } from '../lib/banking/checkbook'
 
 describe('Banking banking SDK', () => {
   it('exposes the supported banking services', () => {
-    expect(AVAILABLE_BANKING_SERVICES).toEqual(['checkbook', 'usio', 'bridge', 'unit'])
+    expect(AVAILABLE_BANKING_SERVICES).toEqual(['checkbook', 'usio', 'bridge', 'unit', 'swipelux'])
   })
 
   it('checkbook provider throws when CHKBK_URL is missing', () => {

@@ -57,6 +57,21 @@ const bridgeIndividualFields = [
   { name: 'contactName', providerName: 'name', label: 'Full Name', description: 'The individual customer’s first and last name.', type: 'text', autocomplete: 'name', required: true }
 ];
 
+const swipeluxContactFields = [
+  { name: 'contactEmail', providerName: 'email', label: 'Email', type: 'text', autocomplete: 'email', required: false },
+  { name: 'contactPhone', providerName: 'phone', label: 'Phone', type: 'tel', autocomplete: 'tel', required: false }
+];
+partnerSchemas.set('swipelux', {
+  individual: [
+    { name: 'contactName', providerName: 'name', label: 'Full Name', description: 'Initial SwipeLux customer profile; capability tasks collect further verification details.', type: 'text', autocomplete: 'name', required: false },
+    ...swipeluxContactFields
+  ],
+  business: [
+    { name: 'businessName', providerName: 'business_name', label: 'Legal Business Name', description: 'The legal name required to create a SwipeLux business customer. KYB requirements are returned as capability tasks.', type: 'text', autocomplete: 'organization', required: true },
+    ...swipeluxContactFields
+  ]
+});
+
 partnerSchemas.set('unit', { business: unitBusinessFields });
 partnerSchemas.set('checkbook', { business: checkbookBusinessFields });
 partnerSchemas.set('usio', { business: usioBusinessFields });

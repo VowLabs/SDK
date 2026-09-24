@@ -3,8 +3,9 @@ import { Provider as CheckbookProvider } from './checkbook'
 import { Provider as UsioProvider } from './usio'
 import { Provider as BridgeProvider } from './bridge'
 import { Provider as UnitProvider } from './unit'
+import { Provider as SwipeLuxProvider } from './swipelux.js'
 
-export const AVAILABLE_BANKING_SERVICES = ['checkbook', 'usio', 'bridge', 'unit'] as const
+export const AVAILABLE_BANKING_SERVICES = ['checkbook', 'usio', 'bridge', 'unit', 'swipelux'] as const
 export type BankingServiceName = typeof AVAILABLE_BANKING_SERVICES[number]
 
 export class Banking {
@@ -12,27 +13,21 @@ export class Banking {
 	debug: boolean = false
 
 	constructor(provider: BankingServiceName = 'checkbook') {
-		this.loadProvider(provider)
+		this.setProvider(provider)
 	}
 
 	static async create(provider: BankingServiceName = 'checkbook') {
-		const banking = new Banking(provider)
-		await banking.loadProvider(provider)
-		return banking
+		return new Banking(provider)
 	}
 
 	async loadProvider(name: BankingServiceName) {
-		try {
-			const Provider = { checkbook: CheckbookProvider, usio: UsioProvider, bridge: BridgeProvider, unit: UnitProvider }[name]
-			if (typeof Provider === 'function') {
-				this.provider = new Provider()
-			} else {
-				throw new Error('Provider not found in module ' + name)
-			}
-		}
-		catch (err: any) {
-			console.error('Failed to load banking provider', err)
-		}
+		this.setProvider(name)
+	}
+
+	private setProvider(name: BankingServiceName) {
+		const Provider = { checkbook: CheckbookProvider, usio: UsioProvider, bridge: BridgeProvider, unit: UnitProvider, swipelux: SwipeLuxProvider }[name]
+		if (typeof Provider !== 'function') throw new Error('Provider not found in module ' + name)
+		this.provider = new Provider()
 	}
 
 	headers(...args: any[]) { return (this.provider as any).headers?.(...args) }

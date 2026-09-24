@@ -12,6 +12,7 @@ Banking currently ships these peer banking providers:
 - `usio`
 - `bridge`
 - `unit`
+- `swipelux`
 
 Each one implements the shared `BankingProvider` interface defined in [../lib/banking/types.ts](../lib/banking/types.ts).
 
@@ -29,6 +30,7 @@ This gives an orchestrating app one place to switch between providers without ch
 
 ```ts
 import {
+  SwipeLuxProvider,
   CheckbookProvider,
   USIOProvider,
   BridgeProvider,
@@ -61,3 +63,7 @@ Provider-specific configuration:
 - USIO: `USIO_API`, `USIO_KEY`, `USIO_SECRET`
 - Bridge: `BRIDGE_API_URL`, `BRIDGE_API_KEY`
 - Unit: `UNIT_API_URL`, `UNIT_TOKEN`, `UNIT_DEPOSIT_PRODUCT`
+
+## SwipeLux
+
+Select `swipelux` through `Banking`, or import `SwipeLuxProvider` for native v3 accounts, capabilities, quotes, and transfers. Set `SWIPELUX_API_KEY`; optional `SWIPELUX_API_URL` defaults to `https://platform.swipelux.com`. See [SwipeLux integration](SWIPELUX.md) for supported methods, retry keys, and account-opening examples.
