@@ -2,7 +2,7 @@
 
 Banking is VowLabs' off-chain banking and onboarding product. It owns provider integrations, normalized banking interfaces, and embeddable onboarding UI that other Vow applications can use from trusted server code or browser-safe widgets.
 
-The Telegram customer bot lives separately in [../../../NokNok/Telegram](../../../NokNok/Telegram/). That app consumes this SDK; it is not the SDK itself.
+The Telegram customer bot lives separately in [../../../Memiki/Telegram](../../../Memiki/Telegram/). That app consumes this SDK; it is not the SDK itself.
 
 ## Repository Shape
 
@@ -11,7 +11,7 @@ The Telegram customer bot lives separately in [../../../NokNok/Telegram](../../.
 - [sdk/utils](sdk/utils/) contains provider-native helpers that intentionally sit outside the shared banking abstraction.
 - [lib/unit-onboarding](lib/unit-onboarding/) contains SDK-owned onboarding components.
 - [public/banking-sdk.js](public/banking-sdk.js) and [public/unit-onboarding.js](public/unit-onboarding.js) are browser SDK assets.
-- [../../../NokNok/Telegram](../../../NokNok/Telegram/) is the Next.js Telegram Mini App and bot webhook implementation.
+- [../../../Memiki/Telegram](../../../Memiki/Telegram/) is the Next.js Telegram Mini App and bot webhook implementation.
 
 ## Where To Start
 
@@ -19,7 +19,7 @@ The Telegram customer bot lives separately in [../../../NokNok/Telegram](../../.
 - Banking providers: [docs/BANKING.md](docs/BANKING.md)
 - Unit integration: [docs/UNIT.md](docs/UNIT.md)
 - Bridge integration: [docs/BRIDGE.md](docs/BRIDGE.md)
-- Telegram app and bot: [../../../NokNok/Telegram/README.md](../../../NokNok/Telegram/README.md)
+- Telegram app and bot: [../../../Memiki/Telegram/README.md](../../../Memiki/Telegram/README.md)
 
 ## Public SDK Entry Points
 
@@ -74,13 +74,13 @@ pnpm typecheck
 The Telegram app is intentionally a separate package:
 
 ```bash
-pnpm -C ../../../NokNok/Telegram dev
-pnpm -C ../../../NokNok/Telegram dev:https
-pnpm -C ../../../NokNok/Telegram build
-pnpm -C ../../../NokNok/Telegram start
+pnpm -C ../../../Memiki/Telegram dev
+pnpm -C ../../../Memiki/Telegram dev:https
+pnpm -C ../../../Memiki/Telegram build
+pnpm -C ../../../Memiki/Telegram start
 ```
 
-Those commands run the bot/Mini App on port 24105. SDK-focused tests live under [test](test/); Telegram-specific tests live under [../../../NokNok/Telegram/test](../../../NokNok/Telegram/test/).
+Those commands run the bot/Mini App on port 24105. SDK-focused tests live under [test](test/); Telegram-specific tests live under [../../../Memiki/Telegram/test](../../../Memiki/Telegram/test/).
 
 ## Environment
 
